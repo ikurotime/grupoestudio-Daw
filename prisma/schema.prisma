@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   Int                 @id @default(autoincrement())
+  name                 String?
+  surname              String?
+  email                String?
+  imageUrl             String?
+  role                 String?
+  profileTitle         String?
+  profileDescription   String?
+  location             String?
+  rating               Int?
+  createdAt            DateTime            @default(now())
+  tags                 Tag[]
+  language             Language?           @relation(fields: [languageId], references: [id])
+  languageId           Int?
+  displacementMethod   DisplacementMethod? @relation(fields: [displacementMethodId], references: [id])
+  displacementMethodId Int?
+  recommendations      Recommendation[]
+  collaborations       Collaboration[]
+  sentMessages         Message[]           @relation("Sender")
+  receivedMessages     Message[]           @relation("Receiver")
+  proposals            Proposal[]          @relation("User")
+  receivedProposals    Proposal[]          @relation("Receiver")
+}
+
+model Tag {
+  id    Int     @id @default(autoincrement())
+  title String?
+  users User[]
+}
+
+model DisplacementMethod {
+  id    Int     @id @default(autoincrement())
+  title String?
+  users User[]
+}
+
+model Recommendation {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Collaboration {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  title       String?
+  description String?
+  date        DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+model Language {
+  id    Int     @id @default(autoincrement())
+  title String?
+  users User[]
+}
+
+model Proposal {
+  id          Int     @id @default(autoincrement())
+  userId      Int
+  user        User    @relation("User", fields: [userId], references: [id])
+  receiverId  Int
+  receiver    User    @relation("Receiver", fields: [receiverId], references: [id])
+  title       String?
+  description String?
+}
+
+model Message {
+  id         Int     @id @default(autoincrement())
+  senderId   Int
+  sender     User    @relation("Sender", fields: [senderId], references: [id])
+  receiverId Int
+  receiver   User    @relation("Receiver", fields: [receiverId], references: [id])
+  content    String?
+}
