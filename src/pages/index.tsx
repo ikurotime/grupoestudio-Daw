@@ -1,9 +1,4 @@
 import Layout from '../components/Layout/Layout'
-import logo2 from '../img/logosmall.png'
-import photo1 from '../img/volunteers.png'
-import photo2 from '../img/volunteer-blue.png'
-import photo3 from '../img/volunteer.jpg'
-import vector2 from '../img/vector2.png'
 
 export default function Index() {
   return (
@@ -21,7 +16,7 @@ export default function Index() {
               </div>
               <div className='flex items-center justify-center mt-4 sm:justify-end md:justify-end sm:mt-0'>
                 <img
-                  src={photo1}
+                  src='/img/volunteers.png'
                   className='rounded-md max-w-[24rem] w-full sm:w-auto md:max-w-[28rem]'
                   alt='photo1'
                 />
@@ -79,17 +74,17 @@ export default function Index() {
                   </button>
                 </div>
                 <img
-                  src={photo2}
+                  src='/img/volunteer-blue.png'
                   className='rounded-md w-24 sm:w-[14rem] mt-4 sm:mt-0 ml-0 sm:ml-4'
-                  alt='photo2'
+                  alt='Una foto de una chica vestida con una chaqueta azul sonriendo, de fondo una pared azul'
                 />
               </div>
 
               <div className='flex flex-col items-center pt-12 pb-12 sm:flex-row sm:pt-16 sm:pb-16'>
                 <img
-                  src={photo3}
+                  src='/img/volunteer.jpg'
                   className='rounded-md w-full sm:w-[23rem] mr-0 sm:mr-16'
-                  alt='photo3'
+                  alt='Un grupo de personas sentadas en una mesa, conversando'
                 />
                 <div className='flex flex-col mt-4 sm:mt-0'>
                   <h2 className='mb-2 text-base font-bold sm:text-xl sm:mb-4'>
@@ -131,9 +126,9 @@ export default function Index() {
                 </div>
                 <div className='absolute inset-0 flex items-center justify-center '>
                   <img
-                    src={vector2}
+                    src='/img/vector2.png'
                     className='object-cover h-full'
-                    alt='vector2'
+                    alt='Una ilustracion abstacta'
                   />
                 </div>
               </div>
@@ -143,7 +138,7 @@ export default function Index() {
         <div className='w-full'>
           <div className='pt-4 sm:pt-8'>
             <img
-              src={logo2}
+              src='/img/logosmall.png'
               className='w-24 sm:w-[11rem] float-left'
               alt='photo-logo2'
             />

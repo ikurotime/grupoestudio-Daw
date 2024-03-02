@@ -1,7 +1,7 @@
 import EditIcon from '../components/Icons/Edit'
+import Layout from '../components/Layout/Layout'
 import ProfileIcon from '../components/Icons/Profile'
 import SettingsIcon from '../components/Icons/Settings'
-import Layout from '../components/Layout/Layout'
 //import escribiendo from '../imagenes/escribiendo.png'
 
 export default function Dashboard() {
@@ -22,8 +22,6 @@ export default function Dashboard() {
                     {item}
                   </a>
                 ))}
-
-                <div className='absolute top-0 right-0 h-full border-l border-gray-400'></div>
               </div>
             </div>
 
