@@ -11,6 +11,7 @@
     "format": "npx prisma format"
   },
   "dependencies": {
+    "@prisma/client": "^5.10.2",
     "@supabase/supabase-js": "^2.39.7",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
