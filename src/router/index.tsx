@@ -1,7 +1,7 @@
 import { Route, Switch } from 'wouter'
 
-import Index from '../pages'
 import Dashboard from '../pages/Dashboard'
+import Index from '../pages'
 import NotFound from '../pages/NotFound'
 import Profile from '../pages/Profile'
 import Search from '../pages/Search'
