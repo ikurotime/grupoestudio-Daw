@@ -30,7 +30,7 @@ export default function Navbar({ isLogged = false }: NavbarProps) {
             </div>
           ) : (
             <div className='flex justify-end'>
-              <button className='p-2 mr-4 text-xs text-white bg-yellow-400 rounded-md sm:mr-8'>
+              <button className='p-2 mr-4 text-xs bg-yellow-400 rounded-md sm:mr-8'>
                 Crea tu cuenta
               </button>
               <button className='p-1 text-xs underline rounded-md'>

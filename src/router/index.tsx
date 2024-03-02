@@ -1,7 +1,8 @@
 import { Route, Switch } from 'wouter'
 
-import Dashboard from '../pages/Dashboard'
 import Index from '../pages'
+import Contact from '../pages/Contact'
+import Dashboard from '../pages/Dashboard'
 import NotFound from '../pages/NotFound'
 import Profile from '../pages/Profile'
 import Search from '../pages/Search'
@@ -16,6 +17,7 @@ export default function Router() {
       <Route path='/signup' component={SignUp} />
       <Route path='/signin' component={SignIn} />
       <Route path='/search' component={Search} />
+      <Route path='/contacto' component={Contact} />
       <Route path='/search/profile/:id' component={Profile} />
       <Route>
         <NotFound />
