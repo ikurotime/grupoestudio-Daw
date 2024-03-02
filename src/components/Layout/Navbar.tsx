@@ -10,30 +10,36 @@ export default function Navbar({ isLogged = false }: NavbarProps) {
       <a href='/'>
         <img
           src='/img/logolong.png'
-          className='float-left w-[8rem]'
+          className='float-left w-24 sm:w-32 md:w-40'
           alt='foto-logo'
         />
       </a>
-
-      {isLogged ? (
-        <div className='flex justify-end'>
-          <button className='mr-2'>
-            <MessageIcon />
-          </button>
-          <button className='ml-2'>
-            <ProfileOutlinedIcon />
-          </button>
+      <div className='flex items-center justify-end gap-10'>
+        <a href='/contacto'>
+          <p className='text-sm '>Contacto</p>
+        </a>
+        <div>
+          {isLogged ? (
+            <div className='flex justify-end'>
+              <button className='mr-2'>
+                <MessageIcon />
+              </button>
+              <button className='ml-2'>
+                <ProfileOutlinedIcon />
+              </button>
+            </div>
+          ) : (
+            <div className='flex justify-end'>
+              <button className='p-2 mr-4 text-xs text-white bg-yellow-400 rounded-md sm:mr-8'>
+                Crea tu cuenta
+              </button>
+              <button className='p-1 text-xs underline rounded-md'>
+                Conectarse
+              </button>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className='flex justify-end'>
-          <button className='p-2 mr-8 text-xs text-white bg-yellow-400 rounded-md'>
-            Crea tu cuenta
-          </button>
-          <button className='p-1 mr-6 text-xs underline rounded-md'>
-            Conectarse
-          </button>
-        </div>
-      )}
+      </div>
     </div>
   )
 }
