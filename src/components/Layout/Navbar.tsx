@@ -6,7 +6,7 @@ interface NavbarProps {
 }
 export default function Navbar({ isLogged = false }: NavbarProps) {
   return (
-    <div className='p-4 mx-0 bg-white rounded-md shadow-md '>
+    <div className='p-4 mx-0 bg-white border rounded-md '>
       <a href='/'>
         <img
           src='/img/logolong.png'
@@ -16,7 +16,7 @@ export default function Navbar({ isLogged = false }: NavbarProps) {
       </a>
       <div className='flex items-center justify-end gap-10'>
         <a href='/contacto'>
-          <p className='text-sm '>Contacto</p>
+          <p className='text-base'>Contacto</p>
         </a>
         <div>
           {isLogged ? (
@@ -30,10 +30,10 @@ export default function Navbar({ isLogged = false }: NavbarProps) {
             </div>
           ) : (
             <div className='flex justify-end'>
-              <button className='p-2 mr-4 text-xs bg-yellow-400 rounded-md sm:mr-8'>
+              <button className='p-2 mr-4 text-base bg-yellow-400 rounded-md sm:mr-8'>
                 Crea tu cuenta
               </button>
-              <button className='p-1 text-xs underline rounded-md'>
+              <button className='p-1 text-base underline rounded-md'>
                 Conectarse
               </button>
             </div>
