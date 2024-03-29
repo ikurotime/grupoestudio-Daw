@@ -1,6 +1,9 @@
+import { Button } from '@/components/ui/button'
 import Layout from '../components/Layout/Layout'
+import { useLocation } from 'wouter'
 
 export default function Index() {
+  const [, setLocation] = useLocation()
   return (
     <Layout>
       <div className='flex flex-col w-full'>
@@ -32,11 +35,9 @@ export default function Index() {
                 className='flex-1 p-2 mr-2 text-base bg-transparent border-2 rounded-md border-grey sm:mr-4'
                 placeholder="''Madrid', ''Vigo''"
               />
-              <div className='flex items-center justify-center mt-4 sm:justify-between sm:mt-0'>
-                <button className='p-2 mr-2 text-base bg-yellow-400 rounded-md sm:mr-8'>
-                  Encontrar personas
-                </button>
-                <p className='p-2 mr-2 text-base sm:mr-8'> o </p>
+              <div className='flex items-center justify-center gap-2 mt-4 sm:justify-between sm:mt-0'>
+                <Button>Encontrar personas</Button>
+                <p className='p-2 text-base'> o </p>
                 <button className='p-1 text-base underline rounded-md'>
                   Explorar
                 </button>
@@ -120,9 +121,12 @@ export default function Index() {
                     Únete a la plataforma solidaria <br /> de más rápido
                     crecimiento
                   </h1>
-                  <button className='z-10 p-2 px-8 mx-auto text-base text-black bg-white rounded-md'>
+                  <Button
+                    onClick={() => setLocation('/signin')}
+                    variant='secondary'
+                  >
                     Empezar ahora
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
