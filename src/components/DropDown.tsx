@@ -11,8 +11,10 @@ import {
 import { Button } from '@/components/ui/button'
 import ProfileOutlinedIcon from './Icons/ProfileOutlined'
 import { supabase } from '@/supabaseClient'
+import { useLocation } from 'wouter'
 
 export function DropDown() {
+  const [, setLocation] = useLocation()
   const handleLogout = () => {
     supabase.auth.signOut()
   }
@@ -27,7 +29,9 @@ export function DropDown() {
         <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setLocation('/dashboard')}>
+            Dashboard
+          </DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

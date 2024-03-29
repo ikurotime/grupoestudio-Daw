@@ -3,10 +3,14 @@ import { Card, CardContent } from '../ui/card'
 import { Button } from '../ui/button'
 import { DropDown } from '../DropDown'
 import MessageIcon from '../Icons/Message'
-import { User } from '@supabase/supabase-js'
+import { Session } from '@supabase/supabase-js'
 import { useLocation } from 'wouter'
 
-export default function Navbar({ user }: { user: User | null | undefined }) {
+export default function Navbar({
+  session
+}: {
+  session: Session | null | undefined
+}) {
   const [, setLocation] = useLocation()
 
   return (
@@ -23,7 +27,7 @@ export default function Navbar({ user }: { user: User | null | undefined }) {
             <p className='text-base'>Contacto</p>
           </a>
           <div>
-            {user ? (
+            {session ? (
               <div className='flex justify-end gap-4'>
                 <Button variant='secondary'>
                   <MessageIcon />
