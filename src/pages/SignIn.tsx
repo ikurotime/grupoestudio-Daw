@@ -12,10 +12,12 @@ import { supabase } from '../supabaseClient'
 
 export default function SignIn() {
   const handleSignInWith = async (provider: 'google' | 'github') => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider
     })
-    console.log({ data, error })
+    if (error) {
+      console.error('Error:', error.message)
+    }
   }
   return (
     <Layout>

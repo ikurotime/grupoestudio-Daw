@@ -17,6 +17,7 @@ export function DropDown() {
   const [, setLocation] = useLocation()
   const handleLogout = () => {
     supabase.auth.signOut()
+    setLocation('/')
   }
   return (
     <DropdownMenu>
