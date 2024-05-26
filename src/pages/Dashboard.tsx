@@ -8,8 +8,6 @@ import Layout from '../components/Layout/Layout'
 import { supabase } from '@/supabaseClient'
 import { Tables } from 'database.types'
 
-//import escribiendo from '../imagenes/escribiendo.png'
-
 export default function Dashboard() {
   const [user, setUser] = useState<Tables<'User'>>()
   useEffect(() => {

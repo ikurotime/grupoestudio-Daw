@@ -7,7 +7,7 @@ export default function Index() {
   const [, setLocation] = useLocation()
   return (
     <Layout>
-      <div className='flex flex-col w-full'>
+      <div className='flex flex-col w-full bg-white'>
         <div className='flex w-full px-4 justify-evenly sm:px-8 md:px-16'>
           <div className='flex flex-col'>
             <div className='flex flex-row pt-12 pb-8 gap-8 min-h-[70vh] justify-evenly sm:flex-row md:pt-20'>

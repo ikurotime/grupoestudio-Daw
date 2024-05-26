@@ -1,13 +1,40 @@
+import { useState } from 'react'
 import { Button } from './ui/button'
 
-export default function SearchBar() {
+export default function SearchBar({
+  onClick
+}: {
+  onClick: ({
+    formData
+  }: {
+    formData: { search: string; location: string }
+  }) => void
+}) {
+  const [formData, setFormData] = useState({
+    search: '',
+    location: ''
+  })
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+  const handleOnClick = (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+    onClick({ formData })
+  }
   return (
-    <div className='flex flex-col items-center p-4 border rounded-lg h-28 sm:flex-row'>
+    <form
+      onSubmit={handleOnClick}
+      className='flex flex-col items-center p-4 bg-white border rounded-lg h-28 sm:flex-row'
+    >
       <input
+        name='search'
+        onChange={handleChange}
         className='flex-1 p-2 mr-2 text-base bg-transparent border-2 rounded-md border-grey sm:mr-4'
         placeholder="''Ayuda con mudanza'', ''Comp.."
       />
       <input
+        name='location'
+        onChange={handleChange}
         className='flex-1 p-2 mr-2 text-base bg-transparent border-2 rounded-md border-grey sm:mr-4'
         placeholder="''Madrid', ''Vigo''"
       />
@@ -16,6 +43,6 @@ export default function SearchBar() {
         <p className='p-2 text-base'> o </p>
         <button className='p-1 text-base underline rounded-md'>Explorar</button>
       </div>
-    </div>
+    </form>
   )
 }

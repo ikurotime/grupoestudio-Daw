@@ -24,7 +24,7 @@ export default function Layout({ children }: LayoutProps) {
   }, [])
 
   return (
-    <div className='flex flex-1 w-full max-w-[1440px] min-h-screen flex-col gap-1 mx-auto'>
+    <div className='flex flex-col flex-1 w-full min-h-screen gap-1 mx-auto bg-[#f5f5f5]'>
       <Navbar session={session} />
       {children}
     </div>
