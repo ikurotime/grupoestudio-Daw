@@ -4,19 +4,20 @@ import { useEffect, useState } from 'react'
 import EditIcon from '../components/Icons/Edit'
 import { InputWithLabel } from '@/components/InputWithLabel'
 import Layout from '../components/Layout/Layout'
-import { User } from '@prisma/client'
+
 import { supabase } from '@/supabaseClient'
+import { Tables } from 'database.types'
 
 //import escribiendo from '../imagenes/escribiendo.png'
 
 export default function Dashboard() {
-  const [user, setUser] = useState<User>()
+  const [user, setUser] = useState<Tables<'User'>>()
   useEffect(() => {
     supabase.auth.getSession().then((n) =>
       supabase
         .from('User')
         .select('*')
-        .eq('id', n.data.session?.user.id)
+        .eq('id', n.data.session!.user.id)
         .then((n) => setUser(n.data![0]))
     )
   }, [])
@@ -30,7 +31,7 @@ export default function Dashboard() {
                 <CardTitle className='mb-4'>Mi foto</CardTitle>
                 <CardContent>
                   <img
-                    src='/img/perfil.png'
+                    src={user?.imageUrl || '/img/foto-perfil.png'}
                     className='w-24 h-24 rounded-full'
                     alt='foto-perfil'
                   />
@@ -52,13 +53,15 @@ export default function Dashboard() {
                   value={user?.name || ''}
                   type='text'
                 />
-                <InputWithLabel
+                {/* Not mandatory for now, social login retrieves full name in one field */}
+                {/*
+                 <InputWithLabel
                   id='Apellidos'
                   name='surname'
                   label='Apellidos'
                   placeholder='Doe'
                   type='text'
-                />
+                /> */}
               </CardContent>
             </Card>
 
@@ -88,19 +91,6 @@ export default function Dashboard() {
                 />
               </CardContent>
             </Card>
-
-            {/* <Card className='flex flex-col w-full p-4 border border-gray-400 rounded-lg '>
-              <CardTitle>Password</CardTitle>
-              <CardContent className='flex flex-col gap-4 px-0 py-4'>
-                <InputWithLabel
-                  id='Contraseña'
-                  name='password'
-                  label='Contraseña'
-                  placeholder=''
-                  type='password'
-                />
-              </CardContent>
-            </Card> */}
           </div>
         </div>
       </div>
