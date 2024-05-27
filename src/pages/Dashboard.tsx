@@ -1,6 +1,8 @@
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { useEffect, useState } from 'react'
 
+import { AvatarImage } from '@radix-ui/react-avatar'
 import { Button } from '@/components/ui/button'
 import EditIcon from '../components/Icons/Edit'
 import { InputWithLabel } from '@/components/InputWithLabel'
@@ -92,139 +94,147 @@ export default function Dashboard() {
     <Layout>
       <div className='flex flex-col flex-1 w-full bg-white'>
         <div className='flex flex-col h-full gap-4'>
-          <div className='flex max-w-[640px] py-3 mx-auto gap-4'>
-            <Card className='flex items-center w-full p-4 border border-gray-300 rounded-lg 6 '>
-              <div className='flex-grow'>
-                <CardTitle className='mb-4'>Mi foto</CardTitle>
-                <CardContent>
-                  <img
-                    src={user?.imageUrl || '/img/foto-perfil.png'}
-                    className='w-24 h-24 rounded-full'
-                    alt='foto-perfil'
-                  />
-                </CardContent>
+          <div className='flex max-w-[840px] w-full py-3 mx-auto gap-4'>
+            <Card className='flex flex-col w-full p-8 border border-gray-300 rounded-lg'>
+              <div className='flex items-center mb-4'>
+                <div className='flex-grow'>
+                  <CardTitle className='mb-4'>Mi foto</CardTitle>
+                  <CardContent>
+                    <Avatar className='size-24'>
+                      <AvatarImage
+                        src={user?.imageUrl || '/img/foto-perfil.png'}
+                        alt='foto-perfil'
+                      />
+                      <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
+                    </Avatar>
+                  </CardContent>
+                </div>
+                <a className='flex items-center self-start'>
+                  <EditIcon />
+                </a>
               </div>
-              <a className='flex items-center self-start'>
-                <EditIcon />
-              </a>
-            </Card>
-            <Card className='flex items-center flex-1 w-full p-4 border border-gray-300 rounded-lg'>
-              <div className='flex-grow'>
+
+              <div className='mb-4'>
                 <CardTitle className='mb-4'>Tipo de cuenta</CardTitle>
-                <CardContent>
-                  <span className='text-lg'>
-                    {user?.role === 1 ? 'Usuario' : 'Voluntario'}
-                  </span>
-                  <Switch
-                    defaultChecked={user?.role === 2}
-                    checked={volunteerFeatures}
-                    onCheckedChange={() => {
-                      setFormData({
-                        ...formData,
-                        role: volunteerFeatures ? 1 : 2
-                      })
-                      setVolunteerFeatures(!volunteerFeatures)
-                    }}
-                  />
+                <CardContent className='flex items-center '>
+                  <div className='flex gap-4 '>
+                    <span className='text-lg'>
+                      {!volunteerFeatures ? 'Usuario' : 'Voluntario'}
+                    </span>
+                    <Switch
+                      className='data-[state=checked]:bg-yellow-300'
+                      defaultChecked={user?.role === 2}
+                      checked={volunteerFeatures}
+                      onCheckedChange={() => {
+                        setFormData({
+                          ...formData,
+                          role: volunteerFeatures ? 1 : 2
+                        })
+                        setVolunteerFeatures(!volunteerFeatures)
+                      }}
+                    />
+                  </div>
                 </CardContent>
               </div>
-            </Card>
-            <Card className='flex items-center flex-1 w-full p-4 border border-gray-300 rounded-lg'>
+              <div className='flex flex-1 w-full gap-4'>
+                <div className='flex flex-col flex-1'>
+                  <div className='mb-4'>
+                    <CardTitle>Identidad</CardTitle>
+                    <CardContent className='flex flex-col gap-4 px-0 py-4'>
+                      <InputWithLabel
+                        id='Nombre'
+                        name='name'
+                        label='Nombre'
+                        onChange={handleChange}
+                        placeholder='John'
+                        value={formData.name}
+                        type='text'
+                      />
+                    </CardContent>
+                  </div>
+
+                  <div className='mb-4'>
+                    <CardTitle>Email</CardTitle>
+                    <CardContent className='flex flex-col gap-4 px-0 py-4'>
+                      <InputWithLabel
+                        id='Email'
+                        name='email'
+                        value={user?.email || ''}
+                        onChange={handleChange}
+                        label='Email'
+                        placeholder='user@email.com'
+                        type='text'
+                      />
+                    </CardContent>
+                  </div>
+
+                  <div className='mb-4'>
+                    <CardTitle>Teléfono</CardTitle>
+                    <CardContent className='flex flex-col gap-4 px-0 py-4'>
+                      <InputWithLabel
+                        id='phone_number'
+                        name='number'
+                        label='number'
+                        placeholder='677 777 777'
+                        type='text'
+                      />
+                    </CardContent>
+                  </div>
+                </div>
+                <div className='flex flex-col flex-1'>
+                  <div className='mb-4'>
+                    <CardTitle>Actividad a realizar</CardTitle>
+                    <CardContent className='flex flex-col gap-4 px-0 py-4'>
+                      <InputWithLabel
+                        id='Activida'
+                        name='profileTitle'
+                        label='Actividad'
+                        onChange={handleChange}
+                        placeholder='Cuidado a personas mayores, hacer la compra, etc.'
+                        value={formData?.profileTitle || ''}
+                        disabled={!volunteerFeatures}
+                        type='text'
+                      />
+                    </CardContent>
+                  </div>
+
+                  <div className='mb-4'>
+                    <CardTitle>Descripción de la actividad</CardTitle>
+                    <CardContent className='flex flex-col gap-4 px-0 py-4'>
+                      <InputWithLabel
+                        id='Descripción de la actividad'
+                        name='profileDescription'
+                        value={formData?.profileDescription || ''}
+                        label='Descripción de la actividad'
+                        onChange={handleChange}
+                        placeholder='Ayudo a todo el mundo que lo necesite.'
+                        disabled={!volunteerFeatures}
+                        type='text'
+                      />
+                    </CardContent>
+                  </div>
+
+                  <div className='mb-4'>
+                    <CardTitle>Ubicación</CardTitle>
+                    <CardContent className='flex flex-col gap-4 px-0 py-4'>
+                      <InputWithLabel
+                        id='location'
+                        name='location'
+                        onChange={handleChange}
+                        label='location'
+                        value={formData?.location || ''}
+                        placeholder='Madrid,barcelona,etc.'
+                        disabled={!volunteerFeatures}
+                        type='text'
+                      />
+                    </CardContent>
+                  </div>
+                </div>
+              </div>
+
               <Button onClick={handleSubmit}>Guardar cambios</Button>
             </Card>
           </div>
-          <div className='flex max-w-[640px] py-3 mx-auto gap-4'>
-            <Card className='flex flex-col w-full p-4 border border-gray-300 rounded-lg '>
-              <CardTitle>Identidad</CardTitle>
-              <CardContent className='flex flex-col gap-4 px-0 py-4'>
-                <InputWithLabel
-                  id='Nombre'
-                  name='name'
-                  label='Nombre'
-                  onChange={handleChange}
-                  placeholder='John'
-                  value={formData.name}
-                  type='text'
-                />
-              </CardContent>
-            </Card>
-
-            <Card className='flex flex-col w-full p-4 border border-gray-300 rounded-lg '>
-              <CardTitle>Email</CardTitle>
-              <CardContent className='flex flex-col gap-4 px-0 py-4'>
-                <InputWithLabel
-                  id='Email'
-                  name='email'
-                  value={user?.email || ''}
-                  onChange={handleChange}
-                  label='Email'
-                  placeholder='user@email.com'
-                  type='text'
-                />
-              </CardContent>
-            </Card>
-
-            <Card className='flex flex-col w-full p-4 border border-gray-300 rounded-lg '>
-              <CardTitle>Teléfono</CardTitle>
-              <CardContent className='flex flex-col gap-4 px-0 py-4'>
-                <InputWithLabel
-                  id='phone_number'
-                  name='number'
-                  label='number'
-                  placeholder='677 777 777'
-                  type='text'
-                />
-              </CardContent>
-            </Card>
-          </div>
-          {volunteerFeatures ? (
-            <div className='flex   max-w-[640px] py-3 mx-auto gap-4'>
-              <Card className='flex flex-col w-full p-4 border border-gray-300 rounded-lg '>
-                <CardTitle>Actividad a realizar</CardTitle>
-                <CardContent className='flex flex-col gap-4 px-0 py-4'>
-                  <InputWithLabel
-                    id='Activida'
-                    name='profileTitle'
-                    label='Actividad'
-                    onChange={handleChange}
-                    placeholder='Cuidado a personas mayores, hacer la compra, etc.'
-                    value={formData?.profileTitle || ''}
-                    type='text'
-                  />
-                </CardContent>
-              </Card>
-
-              <Card className='flex flex-col w-full p-4 border border-gray-300 rounded-lg '>
-                <CardTitle>Descripción de la actividad</CardTitle>
-                <CardContent className='flex flex-col gap-4 px-0 py-4'>
-                  <InputWithLabel
-                    id='Descripción de la actividad'
-                    name='profileDescription'
-                    value={formData?.profileDescription || ''}
-                    label='Descripción de la actividad'
-                    onChange={handleChange}
-                    placeholder='Ayudo a todo el mundo que lo necesite.'
-                    type='text'
-                  />
-                </CardContent>
-              </Card>
-
-              <Card className='flex flex-col w-full p-4 border border-gray-300 rounded-lg '>
-                <CardTitle>Ubicación</CardTitle>
-                <CardContent className='flex flex-col gap-4 px-0 py-4'>
-                  <InputWithLabel
-                    id='location'
-                    name='location'
-                    onChange={handleChange}
-                    label='location'
-                    value={formData?.location || ''}
-                    placeholder='Madrid,barcelona,etc.'
-                    type='text'
-                  />
-                </CardContent>
-              </Card>
-            </div>
-          ) : null}
         </div>
       </div>
     </Layout>

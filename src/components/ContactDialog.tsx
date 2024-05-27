@@ -47,16 +47,21 @@ export function ContactDialog({
       })
       return
     }
-    const { error } = await supabase.from('Proposal').insert({
-      title,
-      description,
-      receiverId,
-      userId
-    })
+    const { data: proposalData, error } = await supabase
+      .from('Proposal')
+      .insert({
+        title,
+        description,
+        receiverId,
+        userId
+      })
+      .select('id')
+    if (!proposalData) return
     const { error: errorChat } = await supabase.from('Message').insert({
       senderId: userId,
       receiverId,
-      content: description
+      content: description,
+      ProposalId: proposalData[0].id
     })
     if (error || errorChat) {
       toast({
