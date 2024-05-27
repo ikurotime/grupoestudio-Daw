@@ -9,6 +9,7 @@ interface LayoutProps {
 }
 export default function Layout({ children }: LayoutProps) {
   const [session, setSession] = useState<Session | null>()
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)

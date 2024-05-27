@@ -9,7 +9,7 @@ export default function Contact() {
   }
   return (
     <Layout>
-      <div className='flex flex-col w-full gap-3 p-8 m-auto border border-gray-300 rounded-md md:w-1/2'>
+      <div className='flex flex-col w-full gap-3 p-8 m-auto bg-white border border-gray-300 rounded-md md:w-1/2'>
         <h1 className='text-4xl font-bold'>Contacto</h1>
         <div className='flex flex-row '>
           <form onSubmit={handleSubmit} className='flex flex-col w-full gap-3'>

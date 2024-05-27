@@ -32,7 +32,10 @@ export default function Navbar({
           <div>
             {session ? (
               <div className='flex justify-end gap-4'>
-                <Button variant='secondary'>
+                <Button
+                  variant='outline'
+                  onClick={() => setLocation('/messages')}
+                >
                   <MessageIcon />
                 </Button>
                 <DropDown />

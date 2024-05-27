@@ -1,11 +1,14 @@
+import { useEffect, useState } from 'react'
+
 import Layout from '../components/Layout/Layout'
 import SearchBar from '@/components/SearchBar'
-import { useEffect, useState } from 'react'
-import { supabase } from '@/supabaseClient'
+import StarRating from '@/components/StarRating'
 import { Tables } from 'database.types'
+import { supabase } from '@/supabaseClient'
 
 const VOLUNTEER_ID = 2
 type Volunteer = Tables<'User'> & { Language: Tables<'Language'> }
+
 export default function Search() {
   const [volunteerList, setVolunteerList] = useState<Volunteer[]>([])
   useEffect(() => {
@@ -56,6 +59,15 @@ export default function Search() {
     <Layout>
       <div className='flex flex-1 items-center justify-center bg-[#F5F5F5] '>
         <div className='max-w-[1440px] flex w-full flex-col gap-2 h-full'>
+          <div className='flex items-center justify-between w-full p-5 text-xl bg-yellow-200 rounded-lg'>
+            ¿Quieres ser un voluntario?{' '}
+            <a
+              href='/dashboard'
+              className='px-4 py-2 text-white bg-black rounded-lg'
+            >
+              Conviértete en uno
+            </a>
+          </div>
           <SearchBar onClick={handleSearch} />
           <div className='flex justify-between gap-3'>
             <div className='flex flex-1 p-8 bg-white border rounded-md shadow-md '>
@@ -64,16 +76,18 @@ export default function Search() {
             {volunteerList ? (
               <div className='grid grid-cols-1 gap-4 p-4 place-items-center sm:grid-cols-2 lg:grid-cols-3'>
                 {volunteerList.map((volunteer) => (
-                  <div
+                  <a
+                    href={`/search/profile/${volunteer.id}`}
                     key={volunteer.id}
-                    className='flex flex-col items-start bg-white border rounded-md shadow-md w-fit min-w-80'
+                    className='flex flex-col items-start bg-white border rounded-md shadow-md w-fit min-w-80 max-w-80'
                   >
-                    <div className='relative w-full'>
+                    <div className='relative flex w-full '>
                       <img
                         src={volunteer.imageUrl ?? ''}
                         alt='foto-perfil'
-                        className='object-cover object-bottom w-full size-64'
+                        className='flex object-cover w-full aspect-square'
                       />
+                      <div className='absolute w-full h-full bg-gradient-to-tr from-black/50 to-transparent' />
                       <div className='absolute bottom-0 z-10 p-4'>
                         <h2 className='text-xl font-bold text-white '>
                           {volunteer.name}
@@ -88,19 +102,13 @@ export default function Search() {
                         <span className='text-xl font-semibold'>
                           {volunteer.profileTitle}
                         </span>
-                        <div className='flex gap-1'>
-                          {[...Array(volunteer.rating)].map((_, index) => (
-                            <span key={index} className='text-yellow-400'>
-                              ★
-                            </span>
-                          ))}
-                        </div>
+                        <StarRating rating={volunteer.rating || 0} />
                       </div>
                       <span className='px-2 text-blue-400 rounded-md w-fit bg-blue-50'>
                         {volunteer.Language.title}
                       </span>
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             ) : (

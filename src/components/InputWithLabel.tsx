@@ -8,6 +8,8 @@ type InputWithLabelProps = {
   type?: string
   disabled?: boolean
   value?: string
+  defaultValue?: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 export function InputWithLabel({
   label = 'Email',
@@ -16,7 +18,9 @@ export function InputWithLabel({
   type = 'email',
   name,
   value,
-  disabled = false
+  disabled = false,
+  defaultValue,
+  onChange
 }: InputWithLabelProps) {
   return (
     <div className='grid w-full max-w-sm items-center gap-1.5'>
@@ -26,8 +30,10 @@ export function InputWithLabel({
         id={id}
         name={name}
         value={value}
+        defaultValue={defaultValue}
         placeholder={placeholder}
         disabled={disabled}
+        onChange={onChange}
       />
     </div>
   )

@@ -24,7 +24,7 @@ export default function SearchBar({
   return (
     <form
       onSubmit={handleOnClick}
-      className='flex flex-col items-center p-4 bg-white border rounded-lg h-28 sm:flex-row'
+      className='flex flex-col items-center p-4 bg-white border rounded-lg min-h-28 sm:flex-row'
     >
       <input
         name='search'
