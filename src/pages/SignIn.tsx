@@ -62,7 +62,9 @@ export default function SignIn() {
                 htmlName='password'
                 onChange={handleChange}
               />
-              <Button onClick={handleSignIn}>Iniciar sesión</Button>
+              <Button data-testid='signin-button' onClick={handleSignIn}>
+                Iniciar sesión
+              </Button>
             </>
             <>
               <span className='text-center'>o</span>

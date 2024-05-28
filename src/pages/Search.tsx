@@ -5,11 +5,17 @@ import SearchBar from '@/components/SearchBar'
 import StarRating from '@/components/StarRating'
 import { Tables } from 'database.types'
 import { supabase } from '@/supabaseClient'
+import { useLocation } from 'wouter'
 
 const VOLUNTEER_ID = 2
 type Volunteer = Tables<'User'> & { Language: Tables<'Language'> }
-
 export default function Search() {
+  const [, setLocation] = useLocation()
+  supabase.auth.getUser().then((data) => {
+    if (data.data.user === null) {
+      setLocation('/')
+    }
+  })
   const [volunteerList, setVolunteerList] = useState<Volunteer[]>([])
   const [rating, setRating] = useState<string[]>(['1', '2', '3', '4', '5'])
   const [formData, setFormData] = useState({
@@ -36,7 +42,7 @@ export default function Search() {
         console.error(error)
       }
       if (data) {
-        console.log(data)
+        //console.log(data)
         setVolunteerList(
           data.map((volunteer) => ({
             ...volunteer,
@@ -98,7 +104,7 @@ export default function Search() {
       <div className='flex flex-1 items-center justify-center bg-[#F5F5F5] '>
         <div className='max-w-[1440px] flex w-full flex-col gap-2 h-full'>
           <div className='flex items-center justify-between w-full p-5 text-xl bg-yellow-200 rounded-lg'>
-            ¿Quieres ser un voluntario?{' '}
+            <h1>¿Quieres ser un voluntario?</h1>
             <a
               href='/dashboard'
               className='px-4 py-2 text-base text-white rounded-lg bg-primary'
@@ -114,6 +120,7 @@ export default function Search() {
                 <span>Idioma</span>
                 <select
                   name='languageId'
+                  data-testid='language'
                   className='w-full p-2 border rounded-md'
                   onChange={handleSelect}
                 >
@@ -129,6 +136,7 @@ export default function Search() {
                 <span>Valoración</span>
                 <select
                   name='rating'
+                  data-testid='rating'
                   className='w-full p-2 border rounded-md'
                   onChange={handleRating}
                 >

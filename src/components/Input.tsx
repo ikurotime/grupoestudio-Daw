@@ -6,6 +6,9 @@ interface InputProps {
   required?: boolean
   readonly?: boolean
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  dataTestId?: string
+  placeholder?: string
+  value?: string
 }
 export default function Input({
   label,
@@ -14,7 +17,10 @@ export default function Input({
   textarea = false,
   required = false,
   readonly = false,
-  onChange
+  onChange,
+  dataTestId,
+  placeholder,
+  value
 }: InputProps) {
   return (
     <>
@@ -27,7 +33,9 @@ export default function Input({
           id={htmlName}
           name={htmlName}
           required={required}
+          value={value}
           readOnly={readonly}
+          placeholder={placeholder}
           onChange={onChange as unknown as never}
         />
       ) : (
@@ -38,6 +46,9 @@ export default function Input({
           name={htmlName}
           required={required}
           readOnly={readonly}
+          value={value}
+          placeholder={placeholder}
+          data-testid={dataTestId}
           onChange={onChange}
         />
       )}

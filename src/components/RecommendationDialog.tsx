@@ -16,7 +16,7 @@ import { supabase } from '@/supabaseClient'
 import { useState } from 'react'
 import { useToast } from './ui/use-toast'
 
-export function ContactDialog({
+export function RecommendationDialog({
   name,
   receiverId
 }: {
@@ -35,7 +35,7 @@ export function ContactDialog({
     const description = formData.description || ''
     if (!userId || !title || !description) return
     const { data: userData } = await supabase
-      .from('Proposal')
+      .from('Recommendation')
       .select('id')
       .eq('userId', userId)
       .eq('receiverId', receiverId)
@@ -56,7 +56,6 @@ export function ContactDialog({
         userId
       })
       .select('id')
-    console.log(error)
     if (!proposalData) return
     const { error: errorChat } = await supabase.from('Message').insert({
       senderId: userId,
@@ -80,7 +79,7 @@ export function ContactDialog({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant='outline'>Contactar</Button>
+        <Button>Recomendar</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

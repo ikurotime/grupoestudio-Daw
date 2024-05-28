@@ -23,9 +23,11 @@ export default function Navbar({
           alt='foto-logo'
         />
         <div className='flex items-center justify-end gap-10'>
-          <a href='/search'>
-            <p className='text-base'>Buscar perfiles</p>
-          </a>
+          {session ? (
+            <a href='/search'>
+              <p className='text-base'>Buscar perfiles</p>
+            </a>
+          ) : null}
           <a href='/contacto'>
             <p className='text-base'>Contacto</p>
           </a>

@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { Button } from './ui/button'
+import { useState } from 'react'
 
 export default function SearchBar({
   onClick
@@ -27,12 +27,14 @@ export default function SearchBar({
       className='flex flex-col items-center p-4 bg-white border rounded-lg min-h-28 sm:flex-row'
     >
       <input
+        data-testid='search'
         name='search'
         onChange={handleChange}
         className='flex-1 p-2 mr-2 text-base bg-transparent border-2 rounded-md border-grey sm:mr-4'
         placeholder="''Ayuda con mudanza'', ''Comp.."
       />
       <input
+        data-testid='location'
         name='location'
         onChange={handleChange}
         className='flex-1 p-2 mr-2 text-base bg-transparent border-2 rounded-md border-grey sm:mr-4'

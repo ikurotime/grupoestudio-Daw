@@ -22,7 +22,7 @@ export function DropDown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline'>
+        <Button data-testid='dropdown-action' variant='outline'>
           <ProfileOutlinedIcon />
         </Button>
       </DropdownMenuTrigger>

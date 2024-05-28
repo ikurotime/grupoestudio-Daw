@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,29 +14,30 @@ model User {
   surname              String?
   email                String?
   imageUrl             String?
-  role                 Int?                @default(1)
   profileTitle         String?
   profileDescription   String?
   location             String?
-  rating               Int?
+  rating               Int?                @default(0)
   createdAt            DateTime            @default(now())
-  tags                 Tag[]
-  language             Language?           @relation(fields: [languageId], references: [id])
-  languageId           Int?
-  displacementMethod   DisplacementMethod? @relation(fields: [displacementMethodId], references: [id])
+  languageId           Int?                @default(1)
   displacementMethodId Int?
-  recommendations      Recommendation[]
+  role                 Int?                @default(1)
   collaborations       Collaboration[]
-  sentMessages         Message[]           @relation("Sender")
   receivedMessages     Message[]           @relation("Receiver")
-  proposals            Proposal[]          @relation("User")
+  sentMessages         Message[]           @relation("Sender")
   receivedProposals    Proposal[]          @relation("Receiver")
+  proposals            Proposal[]          @relation("User")
+  recommendations      Recommendation[]    @relation("User")
+  recommendation       Recommendation[]    @relation("Receiver")
+  displacementMethod   DisplacementMethod? @relation(fields: [displacementMethodId], references: [id])
+  language             Language?           @relation(fields: [languageId], references: [id])
+  tags                 Tag[]               @relation("TagToUser")
 }
 
 model Tag {
   id    Int     @id @default(autoincrement())
   title String?
-  users User[]
+  users User[]  @relation("TagToUser")
 }
 
 model DisplacementMethod {
@@ -52,19 +47,23 @@ model DisplacementMethod {
 }
 
 model Recommendation {
-  id     Int    @id @default(autoincrement())
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  id         Int     @id @default(autoincrement())
+  userId     String
+  user       User    @relation("User", fields: [userId], references: [id])
+  receiverId String
+  receiver   User    @relation("Receiver", fields: [receiverId], references: [id])
+  title      String?
+  text       String?
 }
 
 model Collaboration {
   id          Int       @id @default(autoincrement())
   userId      String
-  user        User      @relation(fields: [userId], references: [id])
   title       String?
   description String?
   date        DateTime?
   createdAt   DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id])
 }
 
 model Language {
@@ -76,23 +75,23 @@ model Language {
 model Proposal {
   id          Int       @id @default(autoincrement())
   userId      String
-  user        User      @relation("User", fields: [userId], references: [id])
   receiverId  String
-  receiver    User      @relation("Receiver", fields: [receiverId], references: [id])
   title       String?
   description String?
   Message     Message[]
+  receiver    User      @relation("Receiver", fields: [receiverId], references: [id])
+  user        User      @relation("User", fields: [userId], references: [id])
 }
 
 model Message {
   id         Int       @id @default(autoincrement())
   senderId   String
-  sender     User      @relation("Sender", fields: [senderId], references: [id])
   receiverId String
-  receiver   User      @relation("Receiver", fields: [receiverId], references: [id])
   content    String?
   ProposalId Int?
   proposal   Proposal? @relation(fields: [ProposalId], references: [id])
+  receiver   User      @relation("Receiver", fields: [receiverId], references: [id])
+  sender     User      @relation("Sender", fields: [senderId], references: [id])
 }
 
 model Role {
