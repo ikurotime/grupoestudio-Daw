@@ -1,10 +1,13 @@
 import { Button } from '@/components/ui/button'
 import Layout from '../components/Layout/Layout'
-import { useLocation } from 'wouter'
 import SearchBar from '@/components/SearchBar'
+import { useLocation } from 'wouter'
 
 export default function Index() {
   const [, setLocation] = useLocation()
+  const handleClick = () => {
+    setLocation('/search')
+  }
   return (
     <Layout>
       <div className='flex flex-col w-full bg-white'>
@@ -27,7 +30,7 @@ export default function Index() {
               </div>
             </div>
 
-            <SearchBar />
+            <SearchBar onClick={handleClick} />
 
             <div className='flex flex-col items-center p-4 pt-12 sm:p-10 sm:pt-20'>
               <h1 className='my-8 text-2xl font-bold md:mb-24 sm:text-4xl'>
