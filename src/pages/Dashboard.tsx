@@ -53,10 +53,12 @@ export default function Dashboard() {
         return
       }
     }
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('User')
       .update(formData)
       .eq('id', user?.id)
+    console.log(data, error)
+    console.log(user?.id)
     if (error) {
       toast({
         title: 'Error al guardar los cambios',

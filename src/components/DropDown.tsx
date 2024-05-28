@@ -33,7 +33,6 @@ export function DropDown() {
           <DropdownMenuItem onClick={() => setLocation('/dashboard')}>
             Dashboard
           </DropdownMenuItem>
-          <DropdownMenuItem>Settings</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>

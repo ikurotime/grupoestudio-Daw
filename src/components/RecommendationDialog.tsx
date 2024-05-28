@@ -83,11 +83,9 @@ export function RecommendationDialog({
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Entabla una conversación con {name}
-          </AlertDialogTitle>
+          <AlertDialogTitle>Recomienda a {name}</AlertDialogTitle>
           <AlertDialogDescription>
-            {name} recibirá una notificación de tu interés en contactarle.
+            {name} tendrá una valoración de tu parte.
           </AlertDialogDescription>
           <Input label='Título' htmlName='title' onChange={handleChange} />
           <Input

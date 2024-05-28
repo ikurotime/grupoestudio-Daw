@@ -113,7 +113,7 @@ export default function Search() {
             </a>
           </div>
           <SearchBar onClick={handleSearch} />
-          <div className='flex justify-between gap-3'>
+          <div className='flex flex-col justify-between gap-3 xl:flex-row'>
             <div className='flex flex-col flex-1 gap-4 p-8 bg-white border rounded-md shadow-md h-fit '>
               <span className='text-2xl'>Filtros</span>
               <div>
