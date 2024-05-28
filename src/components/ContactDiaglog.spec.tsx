@@ -3,7 +3,7 @@ import '@testing-library/jest-dom'
 import { act, render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { ContactDialog } from './RecommendationDialog'
+import { ContactDialog } from './ContactDialog'
 
 describe('ContactDialog', () => {
   it('renders the input', () => {
