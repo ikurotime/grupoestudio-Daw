@@ -43,15 +43,15 @@ export function RecommendationDialog({
     if (userData) {
       toast({
         title: 'Error',
-        description: 'Ya has enviado una propuesta a este usuario'
+        description: 'Ya has enviado una valoración a este usuario'
       })
       return
     }
     const { data: proposalData, error } = await supabase
-      .from('Proposal')
+      .from('Recommendation')
       .insert({
         title,
-        description,
+        text: description,
         receiverId,
         userId
       })
@@ -71,7 +71,7 @@ export function RecommendationDialog({
     } else {
       toast({
         title: 'Mensaje enviado',
-        description: `La propuesta a ${name} ha sido enviada`
+        description: `La valoración a ${name} ha sido enviada`
       })
     }
   }

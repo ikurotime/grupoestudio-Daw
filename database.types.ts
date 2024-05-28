@@ -215,8 +215,15 @@ export type Database = {
       }
       Recommendation: {
         Row: {
+          title: string
+          text: string
           id: number
-          userId: string
+          userId: {
+            id: string
+            imageUrl: string | null
+            name: string | null
+            surname: string | null
+          }
         }
         Insert: {
           id?: number

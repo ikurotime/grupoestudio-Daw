@@ -10,7 +10,9 @@ import { useLocation } from 'wouter'
 
 export default function Profile() {
   const [profile, setProfile] = useState<Tables<'User'> | null>(null)
-
+  const [recommendation, setRecommendation] = useState<
+    Tables<'Recommendation'>[]
+  >([])
   const [location] = useLocation()
   const pathname = location.split('/').pop() || ''
 
@@ -22,6 +24,14 @@ export default function Profile() {
         .eq('id', pathname)
         .then(({ data }) => {
           setProfile(data![0])
+        })
+      supabase
+        .from('Recommendation')
+        .select('*, User!Recommendation_receiverId_fkey(*), userId(*)')
+        .eq('receiverId', pathname)
+        .then(({ data }) => {
+          console.log(data)
+          setRecommendation(data || [])
         })
     }
 
@@ -50,20 +60,34 @@ export default function Profile() {
                 />
               </div>
             </Card>
-            <Card>
-              <div className='flex flex-col gap-4 p-5'>
-                <div>
-                  <h2 className='text-xl font-semibold'>
-                    {profile.profileTitle}
-                  </h2>
-                  <p>{profile.profileDescription}</p>
+            <div className='flex gap-4'>
+              <Card>
+                <div className='flex flex-col gap-4 p-5'>
+                  <div>
+                    <h2 className='text-xl font-semibold'>
+                      {profile.profileTitle}
+                    </h2>
+                    <p>{profile.profileDescription}</p>
+                  </div>
+                  <div>
+                    <h2 className='text-xl font-semibold'>Idiomas</h2>
+                    <p>{profile.Language.title}</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className='text-xl font-semibold'>Idiomas</h2>
-                  <p>{profile.Language.title}</p>
+              </Card>
+              <Card>
+                <div className='flex flex-col gap-4 p-5'>
+                  <h2 className='text-xl font-semibold'>Recomendaciones</h2>
+                  {recommendation.map((n) => (
+                    <Card key={n.id} className='flex flex-col gap-2 p-3'>
+                      <p>{n.title}</p>
+                      <p>{n.text}</p>
+                      <p>- {n.userId.name}</p>
+                    </Card>
+                  ))}
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </div>
           </div>
         ) : (
           <div className='flex items-center justify-center w-full h-full'>
